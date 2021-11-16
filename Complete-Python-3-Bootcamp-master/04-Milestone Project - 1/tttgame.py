@@ -1,6 +1,7 @@
 # %%
-import numpy as np
 from dataclasses import dataclass
+
+import numpy as np
 
 
 @dataclass
@@ -14,7 +15,7 @@ class TickTackToe:
     def __init__(self):
         self.p1 = player(input("Name of player one,(O)."), "[O]")
         self.p2 = player(input("Name of player two, (X)."), "[X]")
-        self.grid = np.reshape(["[ ]"]*9, (3, 3))
+        self.grid = np.reshape(["[ ]"] * 9, (3, 3))
 
     def show_grid(self):
         print(self.grid)
@@ -30,15 +31,21 @@ class TickTackToe:
 
     def win_check(self, player):
         mark = player.marker
-        if self.grid[:, ::-1].diagonal().tolist().count(mark) == 3 or self.grid.diagonal().tolist().count(mark) == 3:
+        if (
+            self.grid[:, ::-1].diagonal().tolist().count(mark) == 3
+            or self.grid.diagonal().tolist().count(mark) == 3
+        ):
             return True
         for i in range(3):
-            if self.grid[i, :].tolist().count(mark) == 3 or self.grid[:, i].tolist().count(mark) == 3:
+            if (
+                self.grid[i, :].tolist().count(mark) == 3
+                or self.grid[:, i].tolist().count(mark) == 3
+            ):
                 return True
         return False
 
     def new_game(self):
-        self.grid = np.reshape(["[ ]"]*9, (3, 3))
+        self.grid = np.reshape(["[ ]"] * 9, (3, 3))
         p = self.p1
         while True:
             self.place_marker(p)
@@ -46,7 +53,7 @@ class TickTackToe:
                 self.show_grid()
                 print(f"Congratulations {p.name}, you have won!")
                 break
-            elif sum([row.count("[ ]") for row in self.grid.tolist()]) == 0:
+            elif sum(row.count("[ ]") for row in self.grid.tolist()) == 0:
                 self.show_grid()
                 print("Well played both of you, the game is an draw!")
                 break
